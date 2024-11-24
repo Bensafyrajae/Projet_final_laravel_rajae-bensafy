@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide Scrollbar */
+* {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+*::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Table Cell: Highlight Today in Calendar */
+td .fc-day-today {
+    background-color: rgba(55, 136, 216, 0.15) !important; /* Soft blue background */
+}
+
+/* Body Background */
+body {
+    background: linear-gradient(135deg, #94b2e8, #5c86db)!important; /* Subtle gradient */
+    color: #333; /* Default text color for contrast */
+    font-family: 'Inter', sans-serif; /* Clean font style */
+}
+
