@@ -20,7 +20,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="h-screen bg-blue-100 dark:bg-gray-700 flex">
+    <div class="h-screen bg-gray-100 dark:bg-gray-700 flex">
         @include('layouts.navigation')
 
         <!-- Page Content -->
@@ -132,7 +132,7 @@
                 </div>
             </nav>
 
-            <div class="flex h-full overflow-auto no-scrollbar bg-slate-100">
+            <div class="flex h-full overflow-auto no-scrollbar ">
                 {{ $slot }}
             </div>
         </main>

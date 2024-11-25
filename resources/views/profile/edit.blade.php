@@ -31,7 +31,7 @@
                     {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
                 </p>
                 <button
-                    class="bg-blue-600  text-white px-6 py-2 hover:bg-sky-400 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                    class="bg-[#69b3e3]  text-white px-6 py-2 hover:bg-sky-400 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
                 >
                     {{ __('Activate') }}
                 </button>
@@ -46,7 +46,7 @@
                     {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
                 </p>
                 <button
-                    class="bg-blue-600 hover:bg-blue-300 text-white px-6 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-300 "
+                    class="bg-[#69b3e3] hover:bg-blue-300 text-white px-6 py-2 rounded-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:bg-blue-300 "
                 >
                     {{ __('Delete') }}
                 </button>
