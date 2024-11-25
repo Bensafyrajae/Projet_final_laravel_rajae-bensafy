@@ -1,12 +1,12 @@
 <?php
 
-
-
+use App\Http\Controllers\InviteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
+use App\Models\Invite;
 use Chatify\Http\Controllers\Api\MessagesController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,8 +29,8 @@ Route::middleware(['auth', 'verified', 'double-auth'])->group(function () {
         Route::get('/tasks', [TaskController::class, 'index']);
         Route::get('/tasks/all/{id?}', [TaskController::class, 'all'])->name(".all");
         Route::get('/tasks/{team}', [TaskController::class, 'show'])->name(".show");
-        Route::post('/tasks/{id}', [TaskController::class, 'store'])->name(".store");
-        Route::put('/tasks/{id?}', [TaskController::class, 'update'])->name(".update");
+        Route::post('/task/store/{id}' , [TaskController::class, 'store'])->name("tasks.store");      
+         Route::put('/tasks/{id?}', [TaskController::class, 'update'])->name(".update");
         Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('.destroy');
         Route::put('/tasks/{id}/status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
     });
@@ -59,7 +59,7 @@ Route::middleware(['auth', 'verified', 'double-auth'])->group(function () {
     Route::name("teams")->group(function () {
         Route::get('/teams', [TeamController::class, 'index']);
         Route::get('/teams/{team}', [TeamController::class, 'show'])->name('.show');
-        Route::post('/teams', [TeamController::class, 'store'])->name(".store");
+        Route::post('/teams', [TeamController::class, 'store'])->name("team.store");
  
         Route::put('/invite/{team}', [TeamController::class, 'invite'])->name(".invite");
        
@@ -72,10 +72,9 @@ Route::delete('/teams/{team}', [TeamController::class, 'destroy'])->name('teams.
 
 Route::put('/teams/{team}', [TeamController::class, 'update'])->name('teams.update');
 
-
-Route::get('/payment-success', [StripeController::class, 'paymentSuccess'])->name('teams.success');
-    Route::get('/payment-cancel', [StripeController::class, 'paymentCancel'])->name('teams.cancel');
-    Route::post('/teams/stripe', [StripeController::class, 'store'])->name('teams.request');
+Route::get('/stripe', [TeamController::class, 'sub'])->name('subscription');
+Route::get('/stripe/payment-success', [TeamController::class, 'paymentSuccess'])->name('teams.success');
+    Route::get('/stripe/payment-cancel', [StripeController::class, 'paymentCancel'])->name('teams.cancel');
 
 Route::post('teams/store', [TeamController::class, 'store'])->middleware('check.team.limit');
 
@@ -84,7 +83,10 @@ Route::post('/messages/send', [MessagesController::class, 'sendMessage'])->name(
 Route::get('/messages/fetch', [MessagesController::class, 'fetchMessages'])->name('messages.fetch');
 Route::post('/favorites/add', [MessagesController::class, 'addToFavorites'])->name('favorites.add');
 Route::delete('/favorites/remove', [MessagesController::class, 'removeFromFavorites'])->name('favorites.remove');
+Route::post('/invites/{team}', [InviteController::class, 'store'])->name('invites.store');
 
+Route::get('/invites/{id}/accept', [InviteController::class, 'accept'])->name('invites.accept');
+Route::get('/invites/{id}/reject', [InviteController::class, 'reject'])->name('invites.reject');
 
 
 

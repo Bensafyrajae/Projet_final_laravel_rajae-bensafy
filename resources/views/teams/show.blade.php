@@ -1,24 +1,19 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex justify-between items-center">
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-transform hover:scale-105">
-                Team Dashboard: {{ $team->name }}
-            </h1>
-            <div class="flex gap-4">
-                <button type="button" onclick="document.getElementById('inviteModal').showModal()"
-                    class="px-4 py-2 bg-blue-500 text-white dark:bg-gray-200 dark:text-gray-800 rounded-lg shadow-md hover:shadow-lg hover:bg-blue-600 transition-transform">
-                    Invite Member
-                </button>
-                @include('teams.partials.invite-modal')
+      <div class="flex justify-between items-center gap-8"> <!-- Increased gap -->
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100 transition-transform hover:scale-105">
+        Team Dashboard: {{ $team->name }}
+    </h1>
 
-                <button type="button"
-                    onclick="taskStart.value = formatDateTime(new Date());taskEnd.value = formatDateTime(new Date());addTaskModal.show()"
-                    class="px-4 py-2 bg-blue-500 text-white dark:bg-gray-200 dark:text-gray-800 rounded-lg shadow-md hover:shadow-lg hover:bg-blue-600 transition-transform">
-                    Add Task
-                </button>
-                @include('tasks.partials.create-modal', $data = ['id' => $team->id, 'type' => 'Team'])
-            </div>
-        </div>
+    <form action="" method="POST" class="ml-auto">
+        @csrf
+        <button type="submit" onclick="addTaskModal.show()"
+            class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-700 transition-transform">
+            Create Task
+        </button>
+    </form>
+</div>
+
     </x-slot>
 
     <div class="px-6 py-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -129,7 +124,7 @@
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">Calendar</h2>
                 <div id="calendar" class="mt-4 animate-pulse"></div>
-                @include('tasks.partials.create-modal', $data)
+                @include('tasks.partials.create-modal')
             @include('tasks.partials.update-modal') 
             </div>
         </div>

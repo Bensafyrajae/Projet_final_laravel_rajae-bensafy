@@ -21,18 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'verification_code',
-        'double_auth',
+        'stripe_status',
     ];
-    public function hasActiveSubscription(): bool
-    {
-        return $this->stripe_status === 'active';
-    }
 
-    public function teams()
-    {
-        return $this->hasMany(Team::class);
-    }
+
+    // public function teams()
+    // {
+    //     return $this->hasMany(Team::class);
+    // }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -67,6 +63,28 @@ class User extends Authenticatable
     public function ownedTeams()
     {
         return $this->hasMany(Team::class, 'user_id');
+    }
+
+    public function invitations(){
+        return $this->hasMany(User::class);
+    }
+
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members')->withPivot('role');
+    }
+
+
+    public function teamCount()
+    {
+
+        return $this->teams()->count();;
+    }
+
+    public function hasActiveSubscription()
+    {
+        return $this->stripe_status === 'active';
     }
    
 }

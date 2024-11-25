@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="grid gap-6 md:grid-cols-2">
+                    {{-- <div class="grid gap-6 md:grid-cols-2">
                         @foreach ($plans as $plan)
                             <div class="p-6 bg-white dark:bg-gray-700 rounded-lg shadow">
                                 <h3 class="text-lg font-semibold mb-2">{{ $plan['name'] }}</h3>
@@ -24,7 +24,14 @@
                                 </form>
                             </div>
                         @endforeach
-                    </div>
+                    </div> --}}
+                    <a href="{{ route('subscription') }}" >
+                        <input type="hidden"  >
+                        <x-primary-button type="submit">
+                            {{ __('Subscribe Now') }}
+                        </x-primary-button>
+                    </a>
+
                 </div>
             </div>
         </div>

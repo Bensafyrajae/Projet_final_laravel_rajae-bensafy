@@ -31,7 +31,7 @@
             <div
                 class="bg-white dark:bg-gray-800 shadow-md sm:rounded-lg px-6 py-4 flex-[calc(100%-1rem)] sm:flex-[calc(50%-1rem)] md:flex-[calc(33.33%-1rem)] lg:flex-[calc(25%-1rem)] flex flex-col gap-3">
                 <!-- Header Section -->
-                <div class="bg-gray-400 dark:bg-blue-700 p-4 rounded-md flex justify-center">
+                <div class="bg-gray-200 dark:bg-blue-700 p-4 rounded-md flex justify-center">
                     <span
                         class="text-xl font-bold text-blue-600 dark:text-white flex items-center justify-center h-12 w-12 rounded-full bg-blue-200 dark:bg-gray-700">
                         {{ strtoupper(substr($team->name, 0, 1)) }}
@@ -49,7 +49,7 @@
                        <span class=" text-gray-700 font-extralight">Member:</span>   {{ $team->members->count() }}{{ $team->members->count() > 1 ? 's' : '' }}
                     </p>
                     <p class="text-xs gap-2 text-gray-400 dark:text-gray-400">
-                        <span class=" text-gray-700 font-extralight">  Created by :</span> {{ $team->owner->id == Auth::id() ? 'you' : $team->owner->name }}
+                        <span class=" text-gray-700 font-extralight">  Created by :</span> {{ $team->owner->name }}
                     </p>
                     <p class="text-xs text-gray-400 dark:text-gray-400"> <span class=" text-gray-700 font-extralight">Number of Tasks :</span> 
                            {{ $team->tasks->count() }}</p>
@@ -76,6 +76,39 @@
                                 
                             </button>
                         </form>
+                        
+                            <button type="button" onclick="document.getElementById('inviteModal{{ $team->id }}').showModal()"
+                                class="px-4 py-2 bg-blue-500 text-white dark:bg-gray-200 dark:text-gray-800 rounded-lg shadow-md hover:shadow-lg hover:bg-blue-600 transition-transform">
+                                Invite Member{{ $team->id }}
+                            </button>
+                            <dialog id="inviteModal{{ $team->id }}">
+                                <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center text-white z-10">
+                                    <div class="bg-white dark:bg-gray-800 py-6 px-8 rounded">
+                                        <form action="{{ route('invites.store' , $team->id) }}" method="POST">
+                                            @csrf
+                                            <p class="block font-medium text-lg text-gray-700 dark:text-gray-300" for="email">
+                                                Create new Team!{{ $team->id  }}
+                                            </p>
+                            
+                                            <!-- Email -->
+                                            <div class="mt-6">
+                                                <x-input-label for="email" :value="__('Email')" />
+                                                <x-text-input id="email" class='block mt-1 w-full' type="email" name="email"
+                                                    required autocomplete="email" />
+                                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                                            </div>
+                            
+                                            <div class="mt-6 flex justify-end gap-3 sm:ml-24">
+                                                <x-danger-button onclick="inviteModal{{ $team->id }}.close()">{{ __('Cancel') }}</x-danger-button>
+                                                <button type="submit">create</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </dialog>
+                            @include('teams.partials.invite-modal')
+            
+                            
 
                         <!-- Edit Team -->
                         <form action="{{ route('teams.update', $team->id) }}" method="POST" class="inline">

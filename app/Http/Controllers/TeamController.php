@@ -7,6 +7,10 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Stripe\Checkout\Session;
+use Stripe\Price;
+use Stripe\Stripe;
 use Stripe\StripeClient;
 
 class TeamController extends Controller
@@ -32,11 +36,11 @@ class TeamController extends Controller
    
     public function store(Request $request)
 {
-$user = $request->user();
+    $user = auth()->user();
 
 
     // Check if user exceeds free team limit and doesn't have subscription
-    if ($user->teams()->count() >= 5 && !$user->hasActiveSubscription()) {
+    if ($user->teams->count() >= 5 && !$user->hasActiveSubscription()) {
         return redirect()->route('payment.options')
             ->with('error', 'You need to subscribe to create more than 5 teams.');
     }
@@ -54,44 +58,13 @@ $user = $request->user();
      
     ]);
     
-    $team->members()->attach($user);
+    $team->members()->attach($user , ['role' => 'owner']);
 
     return back()->with('success', 'Team created successfully!');
 }
 
 
-    /**
-     * Handle Stripe payment for additional teams.
-     */
-    // public function handlePayment(Request $request)
-    // {
-    //     $user = $request->user();
-    //     $amount = $request->input('amount', 500); // Default $5 in cents
 
-    //     // Validate payment amount
-    //     if (!is_numeric($amount) || $amount <= 0) {
-    //         return back()->with('error', 'Invalid payment amount.');
-    //     }
-
-    //     try {
-    //         // Process the payment
-    //         $this->stripe->charges->create([
-    //             'amount' => $amount,
-    //             'currency' => 'usd',
-    //             'source' => $request->stripeToken,
-    //             'description' => 'Payment for additional team',
-    //             'receipt_email' => $user->email,
-    //         ]);
-
-    //         // Increment team creation limit
-    //         $user->increment('teams_count');
-
-    //         return redirect()->route('teams.create')
-    //             ->with('success', 'Payment successful! You can now create an additional team.');
-    //     } catch (\Exception $e) {
-    //         return back()->with('error', 'Payment failed: ' . $e->getMessage());
-    //     }
-    // }
 
     /**
      * Show payment options for creating additional teams.
@@ -114,16 +87,18 @@ $user = $request->user();
      */
     public function update(Request $request, Team $team)
     {
-        // Validate the incoming request
-        $validated = $request->validate([
+        // dd($group)
+        $request->validate([
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string|max:1000',
         ]);
-        $team->update($validated);
 
-        // Redirect back with a success message
-        return redirect()->route('teams.show', $team->id)->with('success', 'Team updated successfully!');
+
+        $team->name = $request->input('name');
+        $team->save();
+
+        return back();
     }
+   
 
     // remove 
 
@@ -141,28 +116,28 @@ $user = $request->user();
 
     /**
      * Invite a user to the team.
-     */
-    public function invite(Request $request, Team $team)
-    {
-        $request->validate([
-            'email' => "required",
-        ]);
+    //  */
+    // public function invite(Request $request, Team $team)
+    // {
+    //     $request->validate([
+    //         'email' => "required",
+    //     ]);
 
 
-        $user = User::where('email', $request->email)->first();
+    //     $user = User::where('email', $request->email)->first();
 
-        if (!$user) {
-            return back()->with('error', 'user with email ' . $request->email . ' not found!');
-        }
+    //     if (!$user) {
+    //         return back()->with('error', 'user with email ' . $request->email . ' not found!');
+    //     }
 
-        $members = $team->members->map(fn($member) => $member->id)->toArray();
-        if (in_array($user->id, $members)) {
-            return back()->with('error', $user->name . ' already here!');
-        }
+    //     $members = $team->members->map(fn($member) => $member->id)->toArray();
+    //     if (in_array($user->id, $members)) {
+    //         return back()->with('error', $user->name . ' already here!');
+    //     }
 
-        $team->members()->attach($user);
-        return back()->with('success', $user->name . ' invited to ' . $team->name);
-    }
+    //     $team->members()->attach($user);
+    //     return back()->with('success', $user->name . ' invited to ' . $team->name);
+    // }
 
     /**
      * Remove a member from the team.
@@ -214,5 +189,39 @@ $user = $request->user();
         }
 
         return back()->with('success', 'Task created successfully.');
+    }
+
+
+
+    public function SUB(Request $request)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+        $user = auth()->user();
+        $prices = Price::all();
+
+        $checkout_session = Session::create([
+            'customer' => $user->stripe_customer_id, // Use the user's Stripe customer ID
+            'line_items' => [[
+                'price' => $prices->data[0]->id,
+                'quantity' => 1,
+            ]],
+            'mode' => 'subscription',
+            'success_url' => route('teams.success'),
+            'cancel_url' => route('dashboard'),
+        ]);
+
+        return redirect()->away($checkout_session->url);
+    }
+    public function paymentSuccess()
+    {
+        $user = User::where('id' , auth()->user()->id )->first();
+
+        if ($user) {
+            $user->stripe_status = 'active';
+            $user->save();
+        }
+
+        return redirect()->route('dashboard')->with('error', 'Le paiement a échoué ou a été annulé.');
     }
 }

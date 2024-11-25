@@ -24,11 +24,14 @@ class Team extends Model
 
     public function members(): Relation\BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'members');
+        return $this->belongsToMany(User::class, 'team_members');
     }
 
     public function tasks(): Relation\MorphMany
     {
         return $this->morphMany(Task::class, 'taskable');
+    }
+    public function invitations(){
+        return $this->hasMany(Invite::class);
     }
 }

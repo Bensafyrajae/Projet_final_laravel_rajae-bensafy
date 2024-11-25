@@ -1,7 +1,7 @@
 <dialog id="addTaskModal">
     <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center text-white z-10">
         <div class="bg-white dark:bg-gray-800 px-8 py-6 rounded">
-            <form action="\tasks\{{ $data['id'] }}?type={{ $data['type'] }}" method="POST">
+            <form action="\tasks\store }}" method="POST">
                 @csrf
                 <p class="block font-medium text-lg text-blue-700 dark:text-gray-300" for="email">
                     Add new Task!

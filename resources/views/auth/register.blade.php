@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}" class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto transition transform scale-95 hover:scale-100 duration-300 ease-in-out">
+    <form method="POST" action="{{ route('register') }}" class="bg-white p-6 rounded-lg shadow-md w-[36vw] mx-auto transition transform scale-95 hover:scale-100 duration-300 ease-in-out">
         @csrf
 
         <!-- Name -->
@@ -60,13 +60,7 @@
             />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-        {{-- <div class="mt-4">
-            <x-input-label for="profile_image" :value="__('Profile Image')" />
-            <input id="profile_image" type="file" name="profile_image" class="block mt-1 w-full" accept="image/*"
-                required />
-            <x-input-error :messages="$errors->get('profile_image')" class="mt-2" />
-        </div> --}}
-        <!-- Already Registered -->
+       
         <div class="flex items-center justify-between mb-4">
             <a href="{{ route('login') }}" 
                 class="text-sm  text-indigo-600 hover:text-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 ease-in-out">
@@ -76,7 +70,7 @@
 
         <!-- Register Button -->
         <div class="flex items-center justify-between">
-            <x-primary-button class="w-full py-3 flex justify-center bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300 ease-in-out">
+            <x-primary-button class="w-full py-3 flex justify-center bg-[#74a3ea] text-white text-lg font-semibold rounded-lg shadow-md hover:bg-indigo-700 transform hover:scale-105 transition-all duration-300 ease-in-out">
                 {{ __('Register') }}
             </x-primary-button>
         </div>

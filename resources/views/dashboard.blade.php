@@ -29,10 +29,10 @@
 
     <div class="mx-10 dark:bg-gray-900">
         <!-- Header Section -->
-            <div class="text-center bg-white rounded-full mt-4 dark:bg-gray-800 shadow-md ">
+            <div class="text center">
                 <div>
-                    <h1 class="text-xl font-bold dark:text-gray-100">Hello, {{ $user->name }}👋</h1>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">{{ \Carbon\Carbon::now()->isoFormat('dddd, MMMM D, YYYY') }}</p>
+                    <h1 class="text-2xl font-bold dark:text-gray-100">Hello, {{ $user->name }}👋</h1>
+                    <p class="text-xl text-gray-500 dark:text-gray-400">{{ \Carbon\Carbon::now()->isoFormat('dddd, MMMM D, YYYY') }}</p>
                 </div>
             </div>
         
@@ -40,7 +40,7 @@
         <!-- Main Metrics Section -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
             <!-- Number of Teams -->
-            <div class="bg-gray-500 text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
+            <div class="bg-white text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
                 <div class="flex flex-col items-center gap-4">
                 <div class="bg-blue-500 p-3 rounded-full">
                     <svg class="w-6 h-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -48,8 +48,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-bold">{{ Auth::user()->teams->count() }} Teams</h2>
-                    <p class="text-gray-200 text-sm">
+                    <h2 class="text-2xl text-black font-bold">{{ Auth::user()->teams->count() }} Teams</h2>
+                    <p class="text-gray-500 text-sm">
                         You currently have {{ Auth::user()->teams->count() }} active teams. Collaborate and grow your projects with ease.
                     </p>
                 </div>
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Number of Tasks -->
-            <div class="bg-gray-500 text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
+            <div class="bg-white text-black dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
             
                     <div class="flex flex-col items-center gap-4">
                         <div class="bg-blue-500 p-3 rounded-full">
@@ -67,7 +67,7 @@
                         </div>
                         <div>
                             <h2 class="text-2xl font-bold">{{ Auth::user()->Tasks->count() }} Tasks</h2>
-                            <p class="text-gray-200 text-sm">
+                            <p class="text-gray-500 text-sm">
                                 You have {{ Auth::user()->Tasks->count() }} tasks in progress. Stay productive and complete your goals.
                             </p>
                         </div>
@@ -79,27 +79,24 @@
             </div>
 
             <!-- On Going Tasks -->
-            <div class="bg-gray-500 text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200 flex flex-col items-start">
-                <h3 class="text-lg font-semibold text-white dark:text-gray-200">On Going Task</h3>
-                <p class="text-sm text-gray-200 dark:text-gray-400">Best performing employee ranking</p>
-                <img src="../public/images/bg1.png" alt="Task Image" class="w-full rounded-md mt-3">
-                <a href="{{ route('tasks') }}" class="mt-4 bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-md text-white text-sm">
+            <div class="bg-white text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200 flex flex-col items-start">
+                <h3 class="text-lg font-semibold text-black dark:text-gray-200">On Going Task</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Best performing employee ranking</p>
+                             
+                 <a href="{{ route('tasks') }}" class="mt-4 bg-blue-500 hover:bg-blue-400 px-4 py-2 rounded-md text-white text-sm">
                     View Tasks
                 </a>
             </div>
 
             <!-- Graph and Analysis -->
-            <div class="bg-gray-500 text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
-                <h3 class="text-lg font-semibold text-white dark:text-gray-200">Graphs and Analysis</h3>
-                <p class="text-sm text-gray-200 dark:text-gray-400">Projects completed per month</p>
-                <div class="mt-4">
-                    <img src="../public/images/image.png" alt="Graph" class="w-full h-48 rounded-md">
-                </div>
-            </div>
+            <div class="bg-white text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
+                <h3 class="text-lg font-semibold text-black dark:text-gray-200">Graphs and Analysis</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Projects completed per month</p>
+                
         </div>
 
         <!-- Calendar Section -->
-        <div class="">
+        <div class="w-[70vw]">
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">Calendar</h2>
                 <div id="calendar" class="mt-4 animate-pulse"></div>

@@ -1,9 +1,11 @@
+
+
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
     <form method="POST" action="{{ route('login') }}" 
-        class="bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto transition transform scale-95 hover:scale-100 hover:shadow-xl duration-300 ease-in-out">
+        class="bg-white p-8 rounded-xl shadow-lg w-[36vw]  transition transform scale-95 hover:scale-100 hover:shadow-xl duration-300 ease-in-out">
         @csrf
 
         <!-- Email Address -->
@@ -61,7 +63,7 @@
         <!-- Login Button -->
         <div class="flex justify-center">
             <x-primary-button 
-                class="w-full py-3 flex justify-center bg-blue-500 text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-300 transform hover:scale-105 transition-all duration-300 ease-in-out">
+                class="w-full py-3 flex justify-center bg-[#74a3ea] text-white text-lg font-semibold rounded-lg shadow-md hover:bg-blue-300 transform hover:scale-105 transition-all duration-300 ease-in-out">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

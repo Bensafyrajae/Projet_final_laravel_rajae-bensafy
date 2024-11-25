@@ -26,7 +26,7 @@
         <!-- Page Content -->
         <main class="w-full flex flex-col" x-data="{ open: false }">
             <div
-                class="flex justify-between items-center bg-gray-700 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 w-full py-4 px-6">
+                class="flex justify-between items-center bg-gray-100 shadow-md shadow-gray-200  dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 w-full py-4 px-6">
 
                 <!-- Page Heading -->
                 @if (isset($header))
@@ -132,7 +132,7 @@
                 </div>
             </nav>
 
-            <div class="flex h-full overflow-auto no-scrollbar">
+            <div class="flex h-full overflow-auto no-scrollbar bg-slate-100">
                 {{ $slot }}
             </div>
         </main>

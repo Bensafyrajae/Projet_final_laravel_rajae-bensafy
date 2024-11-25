@@ -14,13 +14,9 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $data = [
-            'id' => auth()->id(),
-            'type' => 'User',
-            'heading' => 'Personal',
-            'model' => auth()->user()
-        ];
-        return view('tasks.index', compact('data'));
+        
+        $task=Task::all();
+        return view('tasks.index', compact('task'));
     }
 
     /**
@@ -65,48 +61,36 @@ class TaskController extends Controller
      */
     public function show(Team $team)
     {
-        $data = [
-            'id' => $team->id,
-            'type' => 'Team',
-            'heading' => $team->name,
-            'model' => $team
-        ];
-        return view('tasks.index', compact('data'));
+        $task=Task::all();
+        return view('tasks.index', compact('task'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, int $id = null)
-    {
+    {   
         $request->validate([
             "id" => "integer",
             "title" => "string",
             "description" => "string",
             "priority" => "string",
         ]);
+        $request->update([
+            "id" => "integer",
+            "title" => "string",
+            "description" => "string",
+            "priority" => "string",
+        ]);
 
-        $task = Task::find($id ?? $request->id);
+       
 
-        $data = array_filter(
-            $request->all(),
-            fn($key) => in_array($key, ['title', 'description', 'status', 'priority', 'start', 'end']),
-            ARRAY_FILTER_USE_KEY,
-        );
-
-        if ($task) {
-            $task->update([...$data]);
-        }
-
-        return back();
+        return redirect()->back()->with('info', 'Personal task updated successfully!');;
     }
 
     /**

@@ -2,12 +2,22 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
-                {{ $data['heading'] }}
+               Tasks
             </h1>
-            <button type="button" onclick="addTaskModal.show()"
-                class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-transform">
-                Create Task
+            <form action="" method="POST" class="ml-auto">
+               @csrf
+               
+                <button type="button"
+                onclick="taskStart.value = formatDateTime(new Date());taskEnd.value = formatDateTime(new Date());addTaskModal.show()"
+                class="flex justify-center items-center px-3 py-1.5 gap-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-bold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+               
+                Add Task
             </button>
+        
+        
+            </form>
+            @include('tasks.partials.create-modal')
+
         </div>
     </x-slot>
 
@@ -22,13 +32,13 @@
                         </h2>
                         <span
                             class="bg-blue-600 text-white text-xs px-2 py-1 rounded shadow">
-                            {{ $data['model']->tasks->where('status', $status)->count() }}
+                            {{ $task->where('status', $status)->count() }}
                         </span>
                     </div>
 
                     <!-- Task Cards -->
                     <div class="space-y-4">
-                        @forelse ($data['model']->tasks->where('status', $status) as $task)
+                        @forelse ($task->where('status', $status) as $task)
                             <div
                                 class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
                                 <h3 class="font-bold text-gray-800 dark:text-white">
@@ -82,6 +92,6 @@
     </div>
 
     <!-- Include Task Modals -->
-    @include('tasks.partials.create-modal', $data)
+    @include('tasks.partials.create-modal')
     @include('tasks.partials.update-modal')
 </x-app-layout>
