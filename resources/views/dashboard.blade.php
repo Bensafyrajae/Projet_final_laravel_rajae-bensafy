@@ -99,8 +99,9 @@
         <div class="w-[74vw]">
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">Calendar</h2>
-                <div id="calendar" class="mt-4 animate-pulse"></div>
-               
+                <div id="calendar" class="mt-4 "></div>
+                
+            
             </div>
         </div>
     </div>

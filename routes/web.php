@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\InviteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StripeController;
@@ -27,7 +28,7 @@ Route::middleware(['auth', 'verified', 'double-auth'])->group(function () {
 
     Route::name("tasks")->group(function () {
         Route::get('/tasks', [TaskController::class, 'index']);
-        Route::get('/tasks/all/{id?}', [TaskController::class, 'all'])->name(".all");
+        Route::get('/tasks/all/{id?}', [TaskController::class, 'all'])->name("tasks.all");
         Route::get('/tasks/{team}', [TaskController::class, 'show'])->name(".show");
         Route::get('/tasks/{id}', [TaskController::class, 'edit'])->name("tasks.edit");
         Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
@@ -54,7 +55,9 @@ Route::middleware(['auth', 'verified', 'double-auth'])->group(function () {
     Route::post('/subscription/checkout', [SubscriptionController::class, 'checkout'])->name('subscription.checkout');
     Route::get('/subscription/success', [SubscriptionController::class, 'success'])->name('subscription.success');
     Route::get('/subscription/cancel', [SubscriptionController::class, 'cancel'])->name('subscription.cancel');
-
+    
+    Route::resource("calendar" , CalendarController::class);
+    Route::get("/calendar/create", [CalendarController::class , "create"]);
     });
     
 

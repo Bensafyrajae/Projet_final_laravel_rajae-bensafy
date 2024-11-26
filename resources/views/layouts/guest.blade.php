@@ -32,7 +32,7 @@
         </div>
     
         <!-- Formulaire -->
-        <div class="w-[110vw] h-[110vh] text-black flex items-center justify-center mt-6 px-8 py-6 bg-gradient-to-r bg-white via-blue-600 to-blue-700 text-white  rounded-xl">
+        <div class="w-[110vw] h-[110vh] text-black flex items-center justify-center mt-6 px-8 py-6   rounded-xl">
             {{ $slot }}
         </div>
     </div>

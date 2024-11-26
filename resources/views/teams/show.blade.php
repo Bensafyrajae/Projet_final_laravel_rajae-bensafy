@@ -209,7 +209,7 @@
                     <tbody class="text-gray-800 dark:text-gray-400 text-sm">
                         @foreach ($team->tasks as $task)
                             <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                <td class="py-3 px-4">{{ $task->name }}</td>
+                                <td class="py-3 px-4">{{ $task->name}}</td>
                             
                                 <td class="py-3 px-4">
                                     <span

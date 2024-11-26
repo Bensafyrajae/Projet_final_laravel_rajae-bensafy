@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const response = await axios.get("/tasks/all");
-    const events = response.data?.events ?? [];
+    const response = await axios.get("/tasks");
+    const events = response.task;
     const width = window.innerWidth;
 
     const myCalendar = document.getElementById("calendar");
@@ -31,14 +31,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         events: events,
         eventClick: (info) => {
-            updateTaskId.value = info.event.id;
-            updateTaskName.value = info.event.title;
-            updateTaskDescription.value = info.event.extendedProps.description;
-            updateTaskStart.value = formatDateTime(info.event.start);
-            updateTaskEnd.value = formatDateTime(info.event.end);
+            updateTaskId.value = id;
+            updateTaskName.value = title;
+            updateTaskDescription.value = description;
+            updateTaskStart.value = formatDateTime(start);
+            updateTaskEnd.value = formatDateTime(end);
 
             updateTaskModal.show();
         },
     });
     calendar.render();
-});
+})
