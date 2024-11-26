@@ -66,9 +66,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold">{{ Auth::user()->Tasks->count() }} Tasks</h2>
+                            <h2 class="text-2xl font-bold"> Tasks</h2>
                             <p class="text-gray-500 text-sm">
-                                You have {{ Auth::user()->Tasks->count() }} tasks in progress. Stay productive and complete your goals.
+                                You have  tasks in progress. Stay productive and complete your goals.
                             </p>
                         </div>
                     </div>
@@ -100,8 +100,7 @@
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">Calendar</h2>
                 <div id="calendar" class="mt-4 animate-pulse"></div>
-                @include('tasks.partials.create-modal', $data)
-            @include('tasks.partials.update-modal') 
+               
             </div>
         </div>
     </div>

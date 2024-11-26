@@ -30,27 +30,39 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
-        $model = [
-        "User" => User::class,
-        "Team" => Team::class,
-        ][$request->input('type')]::find($id);
-
+        //
         $request->validate([
-            "title" => "required|string",
-            "description" => "required|string",
-            "priority" => "required|string",
-            "start" => "required",
-            "end" => "required",
+            'name' => 'required',
+            'description' => 'required',
+            'status' => 'required',
+            'priority' => 'required',
+            'start' => 'required',
+            'end' => 'required',
+            'team_id' => 'nullable',
         ]);
 
-        $model->tasks()->create([
-            "title" => $request->title,
-            "description" => $request->description,
-            "priority" => $request->priority,
-            "start" => $request->start,
-            "end" => $request->end,
+
+
+
+
+        $teamId = $request->team_id;
+        $user = auth()->user();
+
+        if ($teamId) {
+            $teams = Team::where('id', $teamId)->first();
+        }
+
+        Task::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'status' => $request->status,
+            'priority' => $request->priority,
+            'start' => $request->start,
+            'end' => $request->end,
+            'creator_id' => $user->id,
+            'team_id' => $teamId,
         ]);
 
         return back();
@@ -69,29 +81,40 @@ class TaskController extends Controller
      * Show the form for editing the specified resource.
      */
   
-
+     public function edit($id)
+     {
+         $task = Task::findOrFail($id); // Retrieve the task by ID or throw a 404 if not found
+         return view('tasks.edit', compact('task'));
+     }
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, int $id = null)
-    {   
-        $request->validate([
-            "id" => "integer",
-            "title" => "string",
-            "description" => "string",
-            "priority" => "string",
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            "id" => "integer|nullable",
+            "title" => "string|nullable",
+            "description" => "string|nullable",
+            "priority" => "string|nullable",
+            "status" => "string|nullable",
+            "start" => "date|nullable",
+            "end" => "date|nullable",
         ]);
-        $request->update([
-            "id" => "integer",
-            "title" => "string",
-            "description" => "string",
-            "priority" => "string",
-        ]);
-
-       
-
-        return redirect()->back()->with('info', 'Personal task updated successfully!');;
+    
+        // Find the task using the provided id or the id from the request
+        $task = Task::find($id ?? $request->id);
+    
+        if (!$task) {
+            return redirect()->back()->with('error', 'Task not found.');
+        }
+    
+        // Update the task with the validated data
+        $task->update($validatedData);
+    
+        return redirect()->back()->with('info', 'Task updated successfully!');
     }
+    
 
     /**
      * Remove the specified resource from storage.

@@ -1,14 +1,14 @@
-<nav class="bg-white shadow-lg shadow-gray-300 text-gray-600 w-60 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 h-full hidden sm:block">
+<nav class="bg-gray-100 shadow-md shadow-gray-300 text-gray-600 w-72 dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 h-full hidden sm:block">
     <!-- Primary Navigation Menu -->
-    <div class="text-lg px-4 py-4 font-bold text-gray-400">
+    <div class="text-2xl px-4 py-4 font-bold text-gray-400">
         Smart<span class="text-[#599ac5]">Tasker</span> 
       </div>
-    <div class="max-w-7xl mx-auto flex justify-start px-6">
-        <div class="flex flex-col py-20 items-center h-screen">
+    <div class="max-w-7xl mx-auto flex justify-start">
+        <div class="flex flex-col gap-6 py-20 items-center h-screen">
            
 
             <!-- Navigation Links -->
-            <div class="hidden sm:-my-px sm:mt-10 sm:flex">
+            <div class="hidden ml-7 sm:-my-px sm:mt-10 sm:flex">
                 <x-nav-link class="items-center gap-2" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                    
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -65,7 +65,7 @@
                     {{ __('Profile') }}
                 </x-nav-link>
             </div>
-            <div class="hidden sm:-my-px sm:mt-10 sm:flex">
+            <div class="hidden ml-5  sm:-my-px sm:mt-10 sm:flex">
                 <x-nav-link class="items-center gap-2" :href="route('tasks')" :active="request()->routeIs('tasks') || request()->routeIs('tasks.show')">
                    
                         <svg viewBox="0 0 32 32" class="size-6 text-black dark:text-gray-100"

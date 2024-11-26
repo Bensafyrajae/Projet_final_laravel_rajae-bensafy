@@ -20,13 +20,13 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="h-screen bg-gray-100 dark:bg-gray-700 flex">
+    <div class="h-screen bg-gray-50 dark:bg-gray-700 flex">
         @include('layouts.navigation')
 
         <!-- Page Content -->
         <main class="w-full flex flex-col" x-data="{ open: false }">
             <div
-                class="flex justify-between items-center bg-gray-100 shadow-md shadow-gray-200  dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 w-full py-4 px-6">
+                class="flex justify-between items-center bg-gray-50 shadow-md shadow-gray-200  dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700 w-full py-4 px-6">
 
                 <!-- Page Heading -->
                 @if (isset($header))

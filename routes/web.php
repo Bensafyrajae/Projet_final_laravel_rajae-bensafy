@@ -29,8 +29,10 @@ Route::middleware(['auth', 'verified', 'double-auth'])->group(function () {
         Route::get('/tasks', [TaskController::class, 'index']);
         Route::get('/tasks/all/{id?}', [TaskController::class, 'all'])->name(".all");
         Route::get('/tasks/{team}', [TaskController::class, 'show'])->name(".show");
-        Route::post('/task/store/{id}' , [TaskController::class, 'store'])->name("tasks.store");      
-         Route::put('/tasks/{id?}', [TaskController::class, 'update'])->name(".update");
+        Route::get('/tasks/{id}', [TaskController::class, 'edit'])->name("tasks.edit");
+        Route::post('/tasks/store', [TaskController::class, 'store'])->name('tasks.store');
+        // Route::post('/task/store/{id}' , [TaskController::class, 'store'])->name("tasks.store");      
+        Route::put('/tasks/{id?}', [TaskController::class, 'update'])->name('tasks.update');
         Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('.destroy');
         Route::put('/tasks/{id}/status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
     });

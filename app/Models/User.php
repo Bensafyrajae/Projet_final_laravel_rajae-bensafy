@@ -54,9 +54,9 @@ class User extends Authenticatable
     }
     
 
-    public function tasks(): Relation\MorphMany
-    {
-        return $this->morphMany(Task::class, 'taskable');
+
+    public function tasks(){
+        return $this->hasMany(Task::class);
     }
 
    

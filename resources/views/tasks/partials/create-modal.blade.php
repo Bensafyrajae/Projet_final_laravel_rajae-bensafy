@@ -1,77 +1,145 @@
-<dialog id="addTaskModal">
-    <div class="w-screen h-screen fixed inset-0 bg-black/50 grid place-items-center text-white z-10">
-        <div class="bg-white dark:bg-gray-800 px-8 py-6 rounded">
-            <form action="\tasks\store }}" method="POST">
-                @csrf
-                <p class="block font-medium text-lg text-blue-700 dark:text-gray-300" for="email">
-                    Add new Task!
-                </p>
+<!-- Button to Open Modal -->
+<button onclick="toggleModal('modaletasks', true)"
+    class="bg-blue-600 font-bold text-white px-3 py-2 rounded-md text-sm hover:bg-blue-500 transition">
+    + Create Task
+</button>
 
-                <!-- Name -->
-                <div class="mt-6">
-                    <x-input-label for="taskName" :value="__('Name')" />
-                    <x-input id="taskName" class="block mt-1 w-full" name="title" required />
-                    <x-input-error :messages="$errors->get('title')" class="mt-2" />
+<!-- Modal -->
+
+<div id="modaletasks" class="fixed hidden z-50 inset-0 flex  items-center justify-center bg-white bg-opacity-80"
+    aria-hidden="true" role="dialog">
+    <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-8 relative text-gray-200">
+        <!-- Close Button -->
+        <button
+            class="absolute top-4 right-4 text-blue- hover:text-gray-300 focus:ring-2 focus:ring-gray-500 focus:outline-none"
+            aria-label="Close Modal" onclick="toggleModal('modaletasks', false)">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+            </svg>
+        </button>
+
+        <!-- Modal Heading -->
+        <h2 class="text-2xl font-bold text-center text-blue-400 mb-6">Create a New Task</h2>
+
+        <!-- Form for Creating a Task -->
+        <form action='/tasks/store' method="post">
+            @csrf
+
+            <!-- Task Name -->
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-400 mb-1">Task Name</label>
+                >
+                <input type="text" name="name" id="name"
+                    class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                    placeholder="Enter task name" required value="{{ old('name') }}">
+                @error('name')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Description -->
+            <!-- Description -->
+            <div class="mb-4">
+                <label for="description" class="block text-sm font-medium text-gray-400 mb-1">Description</label>
+                <textarea name="description" id="description" rows="4"
+                    class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                    placeholder="Enter task description">{{ old('description') }}</textarea>
+                @error('description')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Deadline -->
+            <div class="mb-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <!-- Date Start -->
+                <div>
+                    <label for="start" class="block text-sm font-medium text-gray-400 mb-1">Date Start</label>
+                    <input type="datetime-local" id="start" name="start" min="{{ date('Y-m-d\TH:i') }}"
+                        class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                        required>
+                    @error('start')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
-                <!-- Description -->
-                <div class="mt-6">
-                    <x-input-label for="taskDescription" :value="__('Description')" />
-                    <x-input id="taskDescription" class="block mt-1 w-full" name="description" required />
-                    <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                <!-- Date End -->
+                <div>
+                    <label for="end" class="block text-sm font-medium text-gray-400 mb-1">Date End</label>
+                    <input type="datetime-local" id="end" name="end" min="{{ date('Y-m-d\TH:i') }}"
+                        class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400"
+                        required>
+                    @error('end')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
+            </div>
 
-                <div class="mt-6 flex flex-col sm:flex-row gap-4">
-                    <!-- Start -->
-                    <div>
-                        <x-input-label for="taskStart" :value="__('Start')" />
-                        <x-input class="block mt-1 w-full" type="datetime-local" name="start" required
-                            id="taskStart" />
-                        <x-input-error :messages="$errors->get('start')" class="mt-2" />
-                    </div>
+            <div class="mb-4">
+                <label for="status" class="block text-sm font-medium text-gray-400 mb-1">Status</label>
+                <select name="status" id="status"
+                    class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400">
+                    <option value="to do" {{ old('status') == 'to do' ? 'selected' : '' }}>To Do</option>
+                    <option value="in progress" {{ old('status') == 'in progress' ? 'selected' : '' }}>In Progress
+                    </option>
+                    <option value="done" {{ old('status') == 'done' ? 'selected' : '' }}>Done</option>
+                </select>
+                @error('status')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-                    <!-- End -->
-                    <div>
-                        <x-input-label for="taskEnd" :value="__('End')" />
-                        <x-input class="block mt-1 w-full" type="datetime-local" name="end" required
-                            id="taskEnd" />
-                        <x-input-error :messages="$errors->get('end')" class="mt-2" />
-                    </div>
-                </div>
 
-                <div class="mt-4 relative">
-                    <x-input-label for="taskPriority" :value="__('Priority')" />
-                    <div class="relative" onclick="priorityModal.show()">
-                        <input
-                            class="cursor-pointer mt-1 w-full focus:outline-none border-gray-300 dark:border-gray-700 outline-none dark:bg-gray-900 text-gray-900 dark:text-gray-300 rounded-md shadow-sm"
-                            name="priority" id="taskPriority" value="low" required readonly />
 
-                        <svg class="cursor-pointer absolute bottom-1/2 translate-y-1/2 -translate-x-1/2 right-0 text-gray-900 dark:text-gray-300 size-5 fill-current"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </div>
+            <!-- Priority -->
+            <div class="mb-4">
+                <label for="priority" class="block text-sm font-medium text-gray-400 mb-1">Priority</label>
+                <select name="priority" id="priority"
+                    class="w-full px-4 py-3 border border-gray-600 bg-white text-black rounded-md shadow-sm focus:ring-blue-400 focus:border-blue-400">
+                    <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>High</option>
+                    <option value="medium" {{ old('priority') == 'medium' ? 'selected' : '' }}>Medium</option>
+                    <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>Low</option>
+                </select>
+                @error('priority')
+                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
-                    <dialog class="m-0 w-full bg-transparent" id="priorityModal">
-                        <div
-                            class="mt-1 border border-gray-300 dark:border-gray-700 text-gray-900 bg-white dark:bg-gray-800 dark:text-gray-300 rounded-md shadow-sm">
-                            @foreach (['low', 'medium', 'high', 'critical'] as $index => $priority)
-                                <div onclick="taskPriority.value = '{{ $priority }}';priorityModal.close()"
-                                    class="{{ $index != 0 ? 'border-t' : '' }} border-gray-300 px-6 dark:border-gray-700 py-2 cursor-pointer">
-                                    {{ $priority }}</div>
-                            @endforeach
-                        </div>
-                    </dialog>
-                    <x-input-error :messages="$errors->get('end')" class="mt-2" />
-                </div>
-
-                <div class="mt-6 flex justify-end gap-3">
-                    <x-primary-button onclick="addTaskModal.close()">{{ __('Cancel') }}</x-primary-button>
-                    <x-primary-button>{{ __('Create') }}</x-primary-button>
-                </div>
-            </form>
-        </div>
+            <!-- Submit Button -->
+            <div class="flex justify-end space-x-4">
+                <button type="button" onclick="toggleModal('modaletasks', false)"
+                    class="text-gray-300 bg-blue-600 hover:bg-gray-600 px-5 py-2 rounded-lg shadow transition">
+                    Cancel
+                </button>
+                <button type="submit"
+                    class="px-5 py-2 bg-blue-600 text-white font-bold rounded-lg shadow hover:bg-blue-500 transition">
+                    Create Task
+                </button>
+            </div>
+        </form>
     </div>
-</dialog>
+</div>
+
+<script>
+    function toggleModal(modalId, show) {
+        const modal = document.getElementById(modalId);
+        if (show) {
+            modal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            modal.setAttribute('aria-hidden', 'false');
+        } else {
+            modal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            modal.setAttribute('aria-hidden', 'true');
+        }
+    }
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modal = document.querySelector('.fixed:not(.hidden)');
+            if (modal) toggleModal(modal.id, false);
+        }
+    });
+</script>

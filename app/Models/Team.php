@@ -27,11 +27,13 @@ class Team extends Model
         return $this->belongsToMany(User::class, 'team_members');
     }
 
-    public function tasks(): Relation\MorphMany
-    {
-        return $this->morphMany(Task::class, 'taskable');
-    }
+
     public function invitations(){
         return $this->hasMany(Invite::class);
+    }
+
+
+    public function tasks(){
+        return $this->hasMany(Task::class);
     }
 }
