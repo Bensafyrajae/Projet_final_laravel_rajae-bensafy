@@ -4,6 +4,10 @@
             <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">
                 Tasks
             </h1>
+            <button onclick="toggleModal('modaletasks', true)"
+    class="bg-blue-600 font-bold text-white px-3 py-2 rounded-md text-sm hover:bg-blue-500 transition">
+    + Create Task
+    </button>
 
             @include('tasks.partials.create-modal')
 

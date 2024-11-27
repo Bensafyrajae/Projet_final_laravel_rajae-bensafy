@@ -8,7 +8,7 @@
     <button onclick="toggleModal('modaletasks', true)"
     class="bg-blue-600 font-bold text-white px-3 py-2 rounded-md text-sm hover:bg-blue-500 transition">
     + Create Task
-</button>
+    </button>
 
 <!-- Modal -->
 
@@ -209,12 +209,12 @@
                     <tbody class="text-gray-800 dark:text-gray-400 text-sm">
                         @foreach ($team->tasks as $task)
                             <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition">
-                                <td class="py-3 px-4">{{ $task->name}}</td>
+                                <td class="py-3 px-4">{{ $task->title }}</td>
                             
                                 <td class="py-3 px-4">
                                     <span
                                         class="px-2 py-1 rounded-lg text-sm {{ $task->status === 'to do' ? 'bg-gray-200 text-gray-800' : ($task->status === 'in progress' ? 'bg-yellow-200 text-yellow-800' : 'bg-green-200 text-green-800') }}">
-                                        {{ ucfirst($task->status) }}
+                                        {{ $task->status }}
                                     </span>
                                 </td>
                                 <td class="py-3 px-4 flex gap-2 justify-center">

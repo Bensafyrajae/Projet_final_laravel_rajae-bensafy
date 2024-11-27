@@ -170,7 +170,7 @@ class TeamController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string|max:1000',
-            'file' => 'nullable|file|mimes:jpeg,png,pdf,docx|max:2048',
+       
         ]);
 
         // Create task
@@ -181,12 +181,12 @@ class TeamController extends Controller
             'description' => $request->description,
         ]);
 
-        // Handle file upload
-        if ($request->hasFile('file')) {
-            $path = $request->file('file')->store('tasks');
-            $task->file_path = $path;
-            $task->save();
-        }
+        // // Handle file upload
+        // if ($request->hasFile('file')) {
+        //     $path = $request->file('file')->store('tasks');
+        //     $task->file_path = $path;
+        //     $task->save();
+        // }
 
         return back()->with('success', 'Task created successfully.');
     }

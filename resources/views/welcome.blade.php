@@ -8,47 +8,33 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        function animateNumbers() {
-            const counters = document.querySelectorAll(".animate-number");
-            const speed = 200; // The lower the value, the faster the animation
-
-            counters.forEach(counter => {
-                const updateCount = () => {
-                    const target = +counter.getAttribute("data-target");
-                    const count = +counter.innerText;
-                    const increment = target / speed;
-
-                    if (count < target) {
-                        counter.innerText = Math.ceil(count + increment);
-                        setTimeout(updateCount, 20);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-
-                counter.style.visibility = "visible"; // Make the counter visible once it starts animating
-                updateCount();
-            });
-        }
-
-        // Trigger animation when the section is in view
-        const observer = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        animateNumbers();
-                        observer.disconnect(); // Stop observing after animation starts
-                    }
-                });
-            }, {
-                threshold: 0.5
-            } // Trigger when 50% of the section is visible
-        );
-
-        observer.observe(document.getElementById("stats-section"));
-    </script>
+    
     <style>
+        /* Feature Card Hover Effects */
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon Zoom Effect */
+.icon-wrapper {
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .icon-wrapper {
+    transform: scale(1.2);
+}
+
+/* Click Animation */
+.feature-card:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -226,80 +212,85 @@
 
 
     <!-- Features -->
-    <section id="features" class="py-20  mb-6">
-        <h2 class="text-center text-3xl font-bold fade-in text-[#69b3e3]">We can help manage your work more efficiently</h2>
-       
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
-              <!-- Task Organization -->
-              <div
-                  class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card">
-                  <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
-                      <i class="fas fa-tasks text-white text-2xl"></i>
-                  </div>
-                  <h3 class="font-bold text-lg text-gray-800">Task Organization</h3>
-                  <p class="text-gray-500 text-center mt-2">
-                      Easily create, organize, and prioritize tasks with our intuitive interface.
-                  </p>
-              </div>
-      
-              <!-- Deadline Reminders -->
-              <div
-                  class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card animate-delay-1s">
-                  <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
-                      <i class="fas fa-bell text-white text-2xl"></i>
-                  </div>
-                  <h3 class="font-bold text-lg text-gray-800">Deadline Reminders</h3>
-                  <p class="text-center text-gray-500 mt-2">
-                      Never miss a deadline again with customizations and notifications.
-                  </p>
-              </div>
-      
-              <!-- Collaborative Work -->
-              <div
-                  class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card animate-delay-2s">
-                  <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
-                      <i class="fas fa-users text-white text-2xl"></i>
-                  </div>
-                  <h3 class="font-bold text-lg text-gray-800">Collaborative Work</h3>
-                  <p class="text-center text-gray-500 mt-2">
-                      Collaborate seamlessly with your team members for shared success.
-                  </p>
-              </div>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
+    <section id="features" class="py-20 mb-6">
+        <h2 class="text-center text-3xl font-bold fade-in text-[#69b3e3]">
+            We can help manage your work more efficiently
+        </h2>
+    
+        <!-- First Row of Features -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
+            <!-- Task Organization -->
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
+                    <i class="fas fa-tasks text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg text-gray-800">Task Organization</h3>
+                <p class="text-gray-500 text-center mt-2">
+                    Easily create, organize, and prioritize tasks with our intuitive interface.
+                </p>
+            </div>
+    
+            <!-- Deadline Reminders -->
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
+                    <i class="fas fa-bell text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg text-gray-800">Deadline Reminders</h3>
+                <p class="text-center text-gray-500 mt-2">
+                    Never miss a deadline again with customizations and notifications.
+                </p>
+            </div>
+    
+            <!-- Collaborative Work -->
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-lg text-gray-800">Collaborative Work</h3>
+                <p class="text-center text-gray-500 mt-2">
+                    Collaborate seamlessly with your team members for shared success.
+                </p>
+            </div>
+        </div>
+    
+        <!-- Second Row of Features -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 max-w-6xl mx-auto">
             <!-- Progress Tracking -->
-            <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center  card animate-card animate">
-                <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
                     <i class="fas fa-chart-line text-white text-2xl"></i>
                 </div>
                 <h3 class="font-bold text-lg text-gray-800">Progress Tracking</h3>
-                <p class="text-center text-gray-500 mt-2">Monitor your progress and achievements with insightful analytics and reports.</p>
+                <p class="text-center text-gray-500 mt-2">
+                    Monitor your progress and achievements with insightful analytics and reports.
+                </p>
             </div>
-        
+    
             <!-- Task Templates -->
-            <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center  card animate-card animate animate-delay-1s">
-                <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
                     <i class="fas fa-file-alt text-white text-2xl"></i>
                 </div>
                 <h3 class="font-bold text-lg text-gray-800">Task Templates</h3>
-                <p class="text-center text-gray-500 mt-2">Save time by using pre-made templates for common tasks and projects.</p>
+                <p class="text-center text-gray-500 mt-2">
+                    Save time by using pre-made templates for common tasks and projects.
+                </p>
             </div>
-        
+    
             <!-- Cross-Platform Sync -->
-            <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center  card animate-card animate animate-delay-2s">
-                <div class="p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center icon animate-icon">
+            <div class="feature-card flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center">
+                <div class="icon-wrapper p-4 w-16 bg-blue-300 rounded-full mb-4 flex justify-center items-center">
                     <i class="fas fa-sync-alt text-white text-2xl"></i>
                 </div>
                 <h3 class="font-bold text-lg text-gray-800">Cross-Platform Sync</h3>
-                <p class="text-center text-gray-500 mt-2">Access your tasks from anywhere, on any device with real-time synchronization.</p>
+                <p class="text-center text-gray-500 mt-2">
+                    Access your tasks from anywhere, on any device with real-time synchronization.
+                </p>
             </div>
         </div>
-      </section>
-      
-
-      
-    
     </section>
+    
+    
   
     <section class="bg-gray-600 text-white py-12">
         <div class="max-w-7xl mx-auto px-6">
@@ -369,76 +360,79 @@
     </section>
     
     <!-- Pricing -->
-    <section class="font-sans ">
-      <div class="max-w-7xl mx-auto py-12 px-6">
-          <h2 class="text-4xl font-bold text-center text-[#69b3e3] mb-6">Key features to boost your productivity</h2>
-          <p class="text-center text-gray-500 mb-12">
-              Explore the essential tools designed to streamline your workflow, enhance team collaboration, and ensure
-              your projects run smoothly from start to finish.
+ <!-- Pricing -->
+<section class="font-sans">
+    <div class="max-w-7xl mx-auto py-12 px-6">
+      <h2 class="text-4xl font-bold text-center text-[#69b3e3] mb-6">Key features to boost your productivity</h2>
+      <p class="text-center text-gray-500 mb-12">
+        Explore the essential tools designed to streamline your workflow, enhance team collaboration, and ensure
+        your projects run smoothly from start to finish.
+      </p>
+  
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- To-do List Card -->
+        <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-black mb-2">To-do List</h3>
+          <p class="text-gray-500 text-center mb-4">
+            Organize your daily tasks effortlessly with our intuitive to-do list. Stay focused and
+            prioritize what matters most.
           </p>
-  
-          <div class="grid gap-8 md:grid-cols-3">
-              <!-- To-do List Card -->
-              <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card animate">
-                  <h3 class="text-lg font-semibold text-black mb-2">To-do List</h3>
-                  <p class="text-gray-500 text-center mb-4">
-                      Organize your daily tasks effortlessly with our intuitive to-do list. Stay focused and
-                      prioritize what matters most.
-                  </p>
-                  <div class="space-y-2">
-                      <div class="flex items-center">
-                          <input type="checkbox" checked class="h-5 w-5 text-yellow-500 rounded">
-                          <label class="ml-3 text-gray-500">Mascot Illustration</label>
-                      </div>
-                      <div class="flex items-center">
-                          <input type="checkbox" class="h-5 w-5 text-yellow-500 rounded">
-                          <label class="ml-3 text-gray-500">Mobile Prototype</label>
-                      </div>
-                      <div class="flex items-center">
-                          <input type="checkbox" class="h-5 w-5 text-yellow-500 rounded">
-                          <label class="ml-3 text-gray-500">UI Design Kits</label>
-                      </div>
-                  </div>
-              </div>
-  
-              <!-- Team Member Tracking Card -->
-              <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card animate animate-delay-1s">
-                  <h3 class="text-lg font-semibold text-black mb-2">Team Member Tracking</h3>
-                  <p class="text-gray-500 text-center  mb-4">
-                      Easily track your team members' progress and stay connected. Ensure everyone is aligned and
-                      working towards shared goals.
-                  </p>
-                  <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
-                      <p class="text-sm text-gray-800">Team Members</p>
-                      <div class="flex mt-2 ">
-                          <!-- Team Member SVG Icons -->
-                          <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
-                          <dotlottie-player src="https://lottie.host/f5f2464d-f9c7-4f3f-b93e-ba4295d09926/UhFhxFp8u3.lottie" background="transparent" speed="1" style="width: 100px; height: 70px" loop autoplay></dotlottie-player>
-                      </div>
-                  </div>
-              </div>
-  
-              <!-- Project Tracking Card -->
-              <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center card animate-card animate animate-delay-2s">
-                  <h3 class="text-lg font-semibold text-black mb-2">Project Tracking</h3>
-                  <p class="text-gray-500 text-center  mb-4">
-                      Monitor project timelines and milestones in real-time. Keep projects on track and meet your
-                      deadlines with confidence.
-                  </p>
-                  <div class="space-y-2">
-                      <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
-                          <p class="text-sm text-gray-800">Client Feedback Review</p>
-                          <span class="text-[#a7cee4] font-semibold"> In Progress</span>
-                      </div>
-                      <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
-                          <p class="text-sm text-gray-800">SprintMaster Dashboard</p>
-                          <span class="text-[#a7cee4] font-semibold">$12,000</span>
-                      </div>
-                  </div>
-              </div>
+          <div class="space-y-2">
+            <div class="flex items-center">
+              <input type="checkbox" checked class="h-5 w-5 text-yellow-500 rounded">
+              <label class="ml-3 text-gray-500">Mascot Illustration</label>
+            </div>
+            <div class="flex items-center">
+              <input type="checkbox" class="h-5 w-5 text-yellow-500 rounded">
+              <label class="ml-3 text-gray-500">Mobile Prototype</label>
+            </div>
+            <div class="flex items-center">
+              <input type="checkbox" class="h-5 w-5 text-yellow-500 rounded">
+              <label class="ml-3 text-gray-500">UI Design Kits</label>
+            </div>
           </div>
+        </div>
+  
+        <!-- Team Member Tracking Card -->
+        <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-50">
+          <h3 class="text-lg font-semibold text-black mb-2">Team Member Tracking</h3>
+          <p class="text-gray-500 text-center mb-4">
+            Easily track your team members' progress and stay connected. Ensure everyone is aligned and
+            working towards shared goals.
+          </p>
+          <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
+            <p class="text-sm text-gray-800">Team Members</p>
+            <div class="flex mt-2">
+              <!-- Team Member SVG Icons -->
+              <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+              <dotlottie-player src="https://lottie.host/f5f2464d-f9c7-4f3f-b93e-ba4295d09926/UhFhxFp8u3.lottie" background="transparent" speed="1" style="width: 100px; height: 70px" loop autoplay></dotlottie-player>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Project Tracking Card -->
+        <div class="flex flex-col rounded-xl shadow-2xl px-8 py-7 bg-white border-2 border-gray-100 items-center transform transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-50">
+          <h3 class="text-lg font-semibold text-black mb-2">Project Tracking</h3>
+          <p class="text-gray-500 text-center mb-4">
+            Monitor project timelines and milestones in real-time. Keep projects on track and meet your
+            deadlines with confidence.
+          </p>
+          <div class="space-y-2">
+            <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
+              <p class="text-sm text-gray-800">Client Feedback Review</p>
+              <span class="text-[#a7cee4] font-semibold"> In Progress</span>
+            </div>
+            <div class="bg-gray-100 p-3 rounded shadow-sm flex justify-between gap-2">
+              <p class="text-sm text-gray-800">SprintMaster Dashboard</p>
+              <span class="text-[#a7cee4] font-semibold">$12,000</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </section>
+  
+
   
 
     <!-- Footer -->

@@ -66,7 +66,7 @@
                             </svg>
                         </div>
                         <div>
-                            <h2 class="text-2xl font-bold"> Tasks</h2>
+                            <h2 class="text-2xl font-bold">  Tasks</h2>
                             <p class="text-gray-500 text-sm">
                                 You have  tasks in progress. Stay productive and complete your goals.
                             </p>
@@ -82,7 +82,8 @@
             <div class="bg-white text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200 flex flex-col items-start">
                 <h3 class="text-lg font-semibold text-black dark:text-gray-200">On Going Task</h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Best performing employee ranking</p>
-                             
+                <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+                <dotlottie-player src="https://lottie.host/2103401a-62a0-4746-b043-cd1769acfbb0/EjLGr8kOy5.lottie" background="transparent" speed="1" style="width: 200px; height: 150px" loop autoplay></dotlottie-player>         
                  <a href="{{ route('tasks') }}" class="mt-4 bg-[#69b3e3] hover:bg-blue-400 px-4 py-2 rounded-md text-white text-sm">
                     View Tasks
                 </a>
@@ -92,7 +93,8 @@
             <div class="bg-white text-white dark:bg-gray-800 p-4 rounded-lg shadow-md transform transition hover:scale-105 duration-200">
                 <h3 class="text-lg font-semibold text-black dark:text-gray-200">Graphs and Analysis</h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Projects completed per month</p>
-                
+                <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+<dotlottie-player src="https://lottie.host/40362f96-699a-4fda-809c-9ceb655e58b9/nUkmYNL7N3.lottie" background="transparent" speed="1" style="width: 250px; height: 200px" loop autoplay></dotlottie-player>
         </div>
 
         <!-- Calendar Section -->
@@ -100,10 +102,11 @@
             <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
                 <h2 class="text-lg font-bold text-gray-800 dark:text-gray-200">Calendar</h2>
                 <div id="calendar" class="mt-4 "></div>
-                
+                @include('tasks.partials.create-modal')
             
             </div>
         </div>
+        
     </div>
    
 </x-app-layout>
